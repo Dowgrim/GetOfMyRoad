@@ -46,13 +46,23 @@ public class Point extends JPanel {
     }
 
     @Override
-    public void paint(Graphics g){
-        System.out.println("test");
-        posX += modificateurHorizontal;
-        posY += modificateurVertical;
+    public void paintComponent(Graphics g){
         g.setColor(Color.PINK);
-        g.fillOval(0, 0, 50, 50);
-        setBounds(posX, posY, 50, 50);
+        g.fillOval(25, 25, 50, 50);
+    }
+
+    public void display() {
+        setBounds(posX, posY, 100, 100);
+        repaint();
+    }
+
+    public void forward(){
+        if(posX <= 277 && modificateurHorizontal > 0 || posX >= -25 && modificateurHorizontal < 0) {
+            posX += modificateurHorizontal;
+        }
+        if(posY <= 535 && modificateurVertical > 0 || posY >= -25 && modificateurVertical < 0) {
+            posY += modificateurVertical;
+        }
     }
 
     public class PointListener implements KeyListener {
@@ -73,7 +83,6 @@ public class Point extends JPanel {
             //TODO Vérif sorti d'écran
             switch(e.getKeyCode()){
                 case KeyEvent.VK_UP: {
-
                     point.setModificateurVertical(-2);
                     break;
                 }
@@ -94,8 +103,25 @@ public class Point extends JPanel {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            point.setModificateurVertical(0);
-            point.setModificateurHorizontal(0);
+            //TODO Vérif sorti d'écran
+            switch(e.getKeyCode()){
+                case KeyEvent.VK_UP: {
+                    point.setModificateurVertical(0);
+                    break;
+                }
+                case KeyEvent.VK_DOWN: {
+                    point.setModificateurVertical(0);
+                    break;
+                }
+                case KeyEvent.VK_LEFT: {
+                    point.setModificateurHorizontal(0);
+                    break;
+                }
+                case KeyEvent.VK_RIGHT:{
+                    point.setModificateurHorizontal(0);
+                    break;
+                }
+            }
         }
     }
 }

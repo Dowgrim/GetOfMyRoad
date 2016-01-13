@@ -16,6 +16,7 @@ public class Ecran extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(360, 640);
         setLayout(null);
+        setResizable(false);
 
         players = new ArrayList<Point>();
 
@@ -35,9 +36,10 @@ public class Ecran extends JFrame {
 
 
 
-
-
         setVisible(true);
+
+        while(true)
+            p1.display();
     }
 
     public class TaskScheduled extends TimerTask {
@@ -45,7 +47,7 @@ public class Ecran extends JFrame {
         @Override
         public void run() {
             for(int i = 0; i< players.size(); i++){
-                players.get(i).repaint();
+                players.get(i).forward();
             }
         }
     }
