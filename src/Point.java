@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 /**
  * Created by Michael on 12/01/2016.
@@ -14,8 +15,9 @@ public class Point extends JPanel {
     protected int posX = 10;
     protected int posY = 50;
 
-    public Point(JFrame f){
-        f.addKeyListener(new PointListener(this));
+    public Point(JFrame f, ArrayList<Integer> keys){
+        super();
+        f.addKeyListener(new PointListener(this, keys));
     }
 
     public int getPosX() {
@@ -68,9 +70,11 @@ public class Point extends JPanel {
     public class PointListener implements KeyListener {
 
         private Point point;
+        private ArrayList<Integer> keys;
 
-        public PointListener(Point p){
+        public PointListener(Point p, ArrayList k){
             point = p;
+            keys = k;
         }
 
         @Override
@@ -80,47 +84,33 @@ public class Point extends JPanel {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            //TODO Vérif sorti d'écran
-            switch(e.getKeyCode()){
-                case KeyEvent.VK_UP: {
-                    point.setModificateurVertical(-2);
-                    break;
-                }
-                case KeyEvent.VK_DOWN: {
-                    point.setModificateurVertical(+2);
-                    break;
-                }
-                case KeyEvent.VK_LEFT: {
-                    point.setModificateurHorizontal(-2);
-                    break;
-                }
-                case KeyEvent.VK_RIGHT:{
-                    point.setModificateurHorizontal(+2);
-                    break;
-                }
+            if(e.getKeyCode()== keys.get(0)) {
+                point.setModificateurVertical(-2);
+            }
+            if(e.getKeyCode()== keys.get(1)) {
+                point.setModificateurVertical(+2);
+            }
+            if(e.getKeyCode()== keys.get(2)) {
+                point.setModificateurHorizontal(-2);
+            }
+            if(e.getKeyCode()== keys.get(3)) {
+                point.setModificateurHorizontal(+2);
             }
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            //TODO Vérif sorti d'écran
-            switch(e.getKeyCode()){
-                case KeyEvent.VK_UP: {
-                    point.setModificateurVertical(0);
-                    break;
-                }
-                case KeyEvent.VK_DOWN: {
-                    point.setModificateurVertical(0);
-                    break;
-                }
-                case KeyEvent.VK_LEFT: {
-                    point.setModificateurHorizontal(0);
-                    break;
-                }
-                case KeyEvent.VK_RIGHT:{
-                    point.setModificateurHorizontal(0);
-                    break;
-                }
+            if(e.getKeyCode()== keys.get(0)) {
+                point.setModificateurVertical(0);
+            }
+            if(e.getKeyCode()== keys.get(1)) {
+                point.setModificateurVertical(0);
+            }
+            if(e.getKeyCode()== keys.get(2)) {
+                point.setModificateurHorizontal(0);
+            }
+            if(e.getKeyCode()== keys.get(3)) {
+                point.setModificateurHorizontal(0);
             }
         }
     }

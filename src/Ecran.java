@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
@@ -20,10 +22,24 @@ public class Ecran extends JFrame {
 
         players = new ArrayList<Point>();
 
-        Point p1 = new Point(this);
+
+        ArrayList<Integer> keys1 = new ArrayList<Integer>();
+        keys1.add(KeyEvent.VK_UP);
+        keys1.add(KeyEvent.VK_DOWN);
+        keys1.add(KeyEvent.VK_LEFT);
+        keys1.add(KeyEvent.VK_RIGHT);
+        Point p1 = new Point(this, keys1);
         players.add(p1);
         getContentPane().add(p1);
 
+        ArrayList<Integer> keys2= new ArrayList<Integer>();
+        keys2.add(KeyEvent.VK_Z);
+        keys2.add(KeyEvent.VK_S);
+        keys2.add(KeyEvent.VK_Q);
+        keys2.add(KeyEvent.VK_D);
+        Point p2 = new Point(this, keys2);
+        players.add(p2);
+        getContentPane().add(p2);
 
         Thread t = new Thread(){
             public void run(){
@@ -38,8 +54,10 @@ public class Ecran extends JFrame {
 
         setVisible(true);
 
-        while(true)
+        while(true) {
+            p2.display();
             p1.display();
+        }
     }
 
     public class TaskScheduled extends TimerTask {
