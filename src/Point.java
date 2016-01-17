@@ -7,18 +7,20 @@ import java.util.ArrayList;
 /**
  * Created by Michael on 12/01/2016.
  */
-public class Point extends JPanel {
+public class Point extends Solid {
 
     private int modificateurHorizontal = 0;
     private int modificateurVertical = 0;
 
-    protected int posX = 10;
-    protected int posY = 50;
 
-    public Point(JFrame f, ArrayList<Integer> keys){
-        super();
+    public Point(JFrame f, ArrayList<Integer> keys,int posXinit,int posYinit, ArrayList<Boolean> iniOccupiedLevel){
+
+        super(posXinit,posYinit,10, iniOccupiedLevel);
+
         f.addKeyListener(new PointListener(this, keys));
     }
+
+
 
     public int getPosX() {
         return posX;
@@ -50,11 +52,11 @@ public class Point extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         g.setColor(Color.PINK);
-        g.fillOval(25, 25, 50, 50);
+        g.fillRect(0, 0, 50, 50);
     }
 
     public void display() {
-        setBounds(posX, posY, 100, 100);
+        setBounds(posX, posY, 50, 50);
         repaint();
     }
 

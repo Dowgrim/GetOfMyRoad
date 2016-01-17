@@ -12,6 +12,7 @@ import java.util.Timer;
 public class Ecran extends JFrame {
 
     List<Point> players;
+    List<Floortile> floortiles;
 
     public Ecran(){
         super("Get of my Road !!");
@@ -21,14 +22,22 @@ public class Ecran extends JFrame {
         setResizable(false);
 
         players = new ArrayList<Point>();
-
+        floortiles = new ArrayList<Floortile>();
 
         ArrayList<Integer> keys1 = new ArrayList<Integer>();
         keys1.add(KeyEvent.VK_UP);
         keys1.add(KeyEvent.VK_DOWN);
         keys1.add(KeyEvent.VK_LEFT);
         keys1.add(KeyEvent.VK_RIGHT);
-        Point p1 = new Point(this, keys1);
+        // niveaux occupé:
+        ArrayList<Boolean> levels1 = new ArrayList<>();
+        levels1 . add(false);
+        for( int i =1; i < 3; i++)
+        {
+            levels1.add(true);
+        }
+
+        Point p1 = new Point(this, keys1, 100,100,levels1);
         players.add(p1);
         getContentPane().add(p1);
 
@@ -37,9 +46,26 @@ public class Ecran extends JFrame {
         keys2.add(KeyEvent.VK_S);
         keys2.add(KeyEvent.VK_Q);
         keys2.add(KeyEvent.VK_D);
-        Point p2 = new Point(this, keys2);
+        // occupied levels :
+        ArrayList<Boolean> levels2 = new ArrayList<>();
+        levels2 . add(false);
+        for( int i =1; i < 3; i++)
+        {
+            levels2.add(true);
+        }
+
+        Point p2 = new Point(this, keys2,50,50, levels2);
         players.add(p2);
         getContentPane().add(p2);
+        ArrayList<Boolean> levelFloor = new ArrayList<>();
+        levelFloor.add(true);
+        for( int i =1; i < 3; i++)
+        {
+            levelFloor.add(false);
+        }
+        Floortile FloorTile1 = new Floortile ( this, 0,0,levelFloor);
+        floortiles.add(FloorTile1);
+        getContentPane().add(FloorTile1);
 
         Thread t = new Thread(){
             public void run(){
