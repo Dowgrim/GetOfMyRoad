@@ -13,19 +13,12 @@ public class Point extends Solid {
     private int modificateurVertical = 0;
 
 
-    public Point(JFrame f, ArrayList<Integer> keys,int posXinit,int posYinit, ArrayList<Boolean> iniOccupiedLevel){
+    public Point(JFrame f, ArrayList<Integer> keys, int posXinit, int posYinit, ArrayList<Boolean> iniOccupiedLevel){
 
         super( posXinit, posYinit, 10, iniOccupiedLevel);
 
         f.addKeyListener(new PointListener(this, keys));
     }
-
-
-
-
-
-
-
 
     public void setModificateurHorizontal(int modificateurHorizontal) {
         this.modificateurHorizontal = modificateurHorizontal;
@@ -53,6 +46,7 @@ public class Point extends Solid {
         if(posY <= 535 && modificateurVertical > 0 || posY >= -25 && modificateurVertical < 0) {
             posY += modificateurVertical;
         }
+        super.forward();
     }
 
     public class PointListener implements KeyListener {
@@ -84,9 +78,6 @@ public class Point extends Solid {
             if(e.getKeyCode()== keys.get(3)) {
                 point.setModificateurHorizontal(+2);
             }
-            checkColision(point);
-
-
         }
 
         @Override

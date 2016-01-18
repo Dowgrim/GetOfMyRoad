@@ -10,6 +10,8 @@ import static java.lang.Math.abs;
  */
 public class Solid extends JPanel{
 
+    private static ArrayList<Solid> SOLIDLIST = new ArrayList<Solid>();
+
     protected int posX = 00;
     protected int posY = 00;
     // la masse d'un élément, si 0 masse pas comparable
@@ -19,21 +21,24 @@ public class Solid extends JPanel{
     protected int speedY = 00;
     protected int accelX = 00;
     protected int accelY = 00;
-    private static ArrayList<Solid> solidList = new ArrayList<Solid>();
+
 
     // liste des forces extérieures pour les calculs du vecteur accélération
     // Chaque élément de extforce est une liste avec comme premier élément x et deuxieme y des vecteur forces concerné
     private ArrayList<List<Integer>> appliedForces;
     // niveau dans l'environement : sol, bas ,milieu, haut, (0,1,2,3)
     private ArrayList<Boolean> occupiedLevel ;
+
+
     public Solid( int posXinit, int posYinit, int massInit, ArrayList<Boolean> initialOccupiedLevel){
         super();
         mass = massInit;
         posX = posXinit;
         posY = posYinit;
         occupiedLevel = initialOccupiedLevel;
-        solidList.add(this);
-
+        SOLIDLIST.add(this);
+        appliedForces = new ArrayList<List<Integer>>();
+        occupiedLevel = initialOccupiedLevel;
     }
 
     public int getPosX() {
@@ -83,26 +88,29 @@ public class Solid extends JPanel{
 
     }
 
-    public void checkColision(Solid checkedSolid)
+    public void checkColision()
     {
-        Rectangle checkingRectangle = checkedSolid.getBounds();
+        Rectangle checkingRectangle = this.getBounds();
         Rectangle otherRectangle;
 
-
-        for (int i = 0; i< solidList.size(); i++)
+        for (int i = 0; i< SOLIDLIST.size(); i++)
         {
-            otherRectangle =  solidList.get(i).getBounds();
-            if (checkingRectangle.intersects(otherRectangle))
-            {
-                collisionHandler(checkedSolid,solidList.get(i));
+            if(!(SOLIDLIST.get(i) == this)) {
+                otherRectangle = SOLIDLIST.get(i).getBounds();
+                if (checkingRectangle.intersects(otherRectangle)) {
+                    collisionHandler(SOLIDLIST.get(i));
+                }
             }
-
         }
     }
-    private static void collisionHandler(Solid S1, Solid S2 )
-    {
-        System.out.println(" colision ! entre"+"\n"+S1+"\n et \n"+S2);
 
+    private void collisionHandler(Solid S)
+    {
+        System.out.println("Colision !");
+    }
+
+    public void forward(){
+        checkColision();
     }
 
 
