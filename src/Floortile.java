@@ -29,8 +29,10 @@ public class Floortile extends Solid{
 
     @Override
     public void forward(){
-        if(posY > 600)
+        if(posY > 600) {
             posY = 0;
+            posX = (int)(Math.random()*360);
+        }
         posY += 1;
         super.forward();
     }
