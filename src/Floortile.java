@@ -10,7 +10,7 @@ public class Floortile extends Solid{
 
     public Floortile(JFrame f, int posXinit, int posYinit, ArrayList<Boolean> initOccupiedLevels)
     {
-        super(posXinit,posYinit,0,initOccupiedLevels);
+        super( posXinit, posYinit, 0, initOccupiedLevels);
 
     }
 

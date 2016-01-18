@@ -1,4 +1,3 @@
-import javax.smartcardio.CommandAPDU;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -16,7 +15,7 @@ public class Point extends Solid {
 
     public Point(JFrame f, ArrayList<Integer> keys,int posXinit,int posYinit, ArrayList<Boolean> iniOccupiedLevel){
 
-        super(posXinit,posYinit,10, iniOccupiedLevel);
+        super( posXinit, posYinit, 10, iniOccupiedLevel);
 
         f.addKeyListener(new PointListener(this, keys));
     }
@@ -85,7 +84,7 @@ public class Point extends Solid {
             if(e.getKeyCode()== keys.get(3)) {
                 point.setModificateurHorizontal(+2);
             }
-            addToHitList(point);
+            checkColision(point);
 
 
         }

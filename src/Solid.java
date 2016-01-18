@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.CheckedInputStream;
 
 import static java.lang.Math.abs;
 
@@ -20,20 +19,21 @@ public class Solid extends JPanel{
     protected int speedY = 00;
     protected int accelX = 00;
     protected int accelY = 00;
-    private static ArrayList<Solid> movedList = new ArrayList<Solid>();
+    private static ArrayList<Solid> solidList = new ArrayList<Solid>();
 
     // liste des forces extérieures pour les calculs du vecteur accélération
     // Chaque élément de extforce est une liste avec comme premier élément x et deuxieme y des vecteur forces concerné
     private ArrayList<List<Integer>> appliedForces;
     // niveau dans l'environement : sol, bas ,milieu, haut, (0,1,2,3)
     private ArrayList<Boolean> occupiedLevel ;
-    public Solid(int posXinit, int posYinit, int massInit, ArrayList<Boolean> initialOccupiedLevel){
+    public Solid( int posXinit, int posYinit, int massInit, ArrayList<Boolean> initialOccupiedLevel){
         super();
         mass = massInit;
         posX = posXinit;
         posY = posYinit;
         occupiedLevel = initialOccupiedLevel;
-        movedList.add(this);
+        solidList.add(this);
+
     }
 
     public int getPosX() {
@@ -82,39 +82,29 @@ public class Solid extends JPanel{
         }
 
     }
-    protected static void addToHitList(Solid solidToCheck)
-    {
-        if(!(movedList.contains(solidToCheck)))
-        {
-            movedList.add(solidToCheck);
-        }
-    }
-    public void checkColision()
-    {
-        Solid checkedSolid;
-        Solid otherSolid;
-        Rectangle checkedRectangle;
-        Rectangle otherRectangle;
-        // non il ne faut pas du tout utilisé sa ya mieux a faire
-        for (int i=0; i<movedList.size(); i++)
-        {
-            checkedSolid = movedList.get(i);
-            int sizeX = checkedSolid.getWidth();
-            int sizeY = checkedSolid.getHeight();
-            checkedRectangle = checkedSolid.getBounds();
-            for (int j =i; j<movedList.size();j++)
-            {
-                otherSolid = movedList.get(j);
-                if (abs(checkedSolid.getPosX())<=sizeX && abs(checkedSolid.getPosY())<=sizeY){
-                    otherRectangle = otherSolid.getBounds();
-                    if (checkedRectangle.intersects(otherRectangle))
-                    {
 
-                    }
-                }
+    public void checkColision(Solid checkedSolid)
+    {
+        Rectangle checkingRectangle = checkedSolid.getBounds();
+        Rectangle otherRectangle;
+
+
+        for (int i = 0; i< solidList.size(); i++)
+        {
+            otherRectangle =  solidList.get(i).getBounds();
+            if (checkingRectangle.intersects(otherRectangle))
+            {
+                collisionHandler(checkedSolid,solidList.get(i));
             }
+
         }
     }
+    private static void collisionHandler(Solid S1, Solid S2 )
+    {
+        System.out.println(" colision ! entre"+"\n"+S1+"\n et \n"+S2);
+
+    }
+
 
 
 }
