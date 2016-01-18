@@ -1,3 +1,5 @@
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.security.Key;
@@ -37,10 +39,10 @@ public class Ecran extends JFrame {
             levels1.add(true);
         }
 
-        Point p1 = new Point(this, keys1, 100,100,levels1);
-        players.add(p1);
-        getContentPane().add(p1);
 
+        Point p1 = new Point(this, keys1, 0,0,levels1);
+        players.add(p1);
+        getContentPane().add(p1,new Integer(1));
         ArrayList<Integer> keys2= new ArrayList<Integer>();
         keys2.add(KeyEvent.VK_Z);
         keys2.add(KeyEvent.VK_S);
@@ -56,7 +58,7 @@ public class Ecran extends JFrame {
 
         Point p2 = new Point(this, keys2,50,50, levels2);
         players.add(p2);
-        getContentPane().add(p2);
+        getContentPane().add(p2, new Integer(1));
         ArrayList<Boolean> levelFloor = new ArrayList<>();
         levelFloor.add(true);
         for( int i =1; i < 3; i++)
@@ -65,7 +67,7 @@ public class Ecran extends JFrame {
         }
         Floortile FloorTile1 = new Floortile ( this, 0,0,levelFloor);
         floortiles.add(FloorTile1);
-        getContentPane().add(FloorTile1);
+        getContentPane().add(FloorTile1,new Integer(0));
 
         Thread t = new Thread(){
             public void run(){
@@ -79,6 +81,7 @@ public class Ecran extends JFrame {
 
 
         setVisible(true);
+        FloorTile1.display();
 
         while(true) {
             p2.display();
@@ -95,5 +98,6 @@ public class Ecran extends JFrame {
             }
         }
     }
+
 
 }

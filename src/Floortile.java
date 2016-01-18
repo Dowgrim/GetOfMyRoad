@@ -12,16 +12,17 @@ public class Floortile extends Solid{
     {
         super(posXinit,posYinit,0,initOccupiedLevels);
 
-
-
-
     }
 
 
 
     @Override
     public void paintComponent(Graphics g){
-        g.setColor(Color.PINK);
+        g.setColor(Color.GRAY);
         g.fillRect(0, 0, 50, 50);
+    }
+    public void display() {
+        setBounds(posX, posY, 50, 50);
+        repaint();
     }
 }

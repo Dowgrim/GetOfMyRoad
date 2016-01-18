@@ -1,3 +1,4 @@
+import javax.smartcardio.CommandAPDU;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,21 +23,7 @@ public class Point extends Solid {
 
 
 
-    public int getPosX() {
-        return posX;
-    }
 
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
 
 
 
@@ -52,12 +39,12 @@ public class Point extends Solid {
     @Override
     public void paintComponent(Graphics g){
         g.setColor(Color.PINK);
-        g.fillRect(0, 0, 50, 50);
+        g.fillOval(0, 0, 50, 50);
     }
 
     public void display() {
         setBounds(posX, posY, 50, 50);
-        repaint();
+        //repaint();
     }
 
     public void forward(){
@@ -98,6 +85,9 @@ public class Point extends Solid {
             if(e.getKeyCode()== keys.get(3)) {
                 point.setModificateurHorizontal(+2);
             }
+            addToHitList(point);
+
+
         }
 
         @Override
