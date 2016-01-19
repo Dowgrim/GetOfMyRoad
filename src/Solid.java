@@ -120,6 +120,13 @@ public class Solid extends JPanel{
         {
             this.backward();
         }
+        else
+        {
+            int difX = S.getPosX()-getPosX();
+            int difY = S.getPosY()-getPosY();
+            S.moveTo(difX,difY);
+        }
+
     }
 
     public void forward(){
@@ -130,6 +137,11 @@ public class Solid extends JPanel{
     {
         setPosX(lastPosX);
         setPosY(lastPosY);
+    }
+    public void moveTo(int dirX, int dirY)
+    {
+        setPosX(getPosX()+dirX);
+        setPosY(getPosY()+dirY);
     }
 
 

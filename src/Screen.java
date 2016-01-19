@@ -75,7 +75,7 @@ public class Screen extends JFrame {
 
 
     public void playerInitialisation(ArrayList<Integer> keys, int initPosX, int initPosY){
-        Point p1 = new Point(this, keys, 0, 0, LEVELS);
+        Point p1 = new Point(this, keys, initPosX, initPosY, LEVELS);
         players.add(p1);
         getContentPane().add(p1);
     }
