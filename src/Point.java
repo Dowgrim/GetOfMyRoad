@@ -41,10 +41,10 @@ public class Point extends Solid {
 
     public void forward(){
         if(posX <= 277 && modificateurHorizontal > 0 || posX >= -25 && modificateurHorizontal < 0) {
-            posX += modificateurHorizontal;
+            setPosX(posX += modificateurHorizontal);
         }
         if(posY <= 535 && modificateurVertical > 0 || posY >= -25 && modificateurVertical < 0) {
-            posY += modificateurVertical;
+            setPosY(posY += modificateurVertical);
         }
         super.forward();
     }

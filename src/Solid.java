@@ -14,7 +14,10 @@ public class Solid extends JPanel{
 
     protected int posX = 00;
     protected int posY = 00;
+    private int lastPosX = 00;
+    private int lastPosY = 00;
     // la masse d'un élément, si 0 masse pas comparable
+    // on vas l'utilisé comme priorité pour l'instant
     protected int mass ;
     // donné pour l'accélération et la vitesse:
     protected int speedX = 00;
@@ -33,8 +36,10 @@ public class Solid extends JPanel{
     public Solid( int posXinit, int posYinit, int massInit, ArrayList<Boolean> initialOccupiedLevel){
         super();
         mass = massInit;
+
         posX = posXinit;
         posY = posYinit;
+
         occupiedLevel = initialOccupiedLevel;
         SOLIDLIST.add(this);
         appliedForces = new ArrayList<List<Integer>>();
@@ -49,11 +54,15 @@ public class Solid extends JPanel{
         return posY;
     }
 
+    public int getMass(){return mass;}
+
     public void setPosX(int posX) {
+        this.lastPosX = posX;
         this.posX = posX;
     }
 
     public void setPosY(int posY) {
+        this.lastPosY = posY;
         this.posY = posY;
     }
 
@@ -107,12 +116,21 @@ public class Solid extends JPanel{
     private void collisionHandler(Solid S)
     {
         System.out.println("Colision !");
+        if (mass<S.getMass())
+        {
+            this.backward();
+        }
     }
 
     public void forward(){
+
         checkColision();
     }
-
+    public void backward()
+    {
+        setPosX(lastPosX);
+        setPosY(lastPosY);
+    }
 
 
 }
