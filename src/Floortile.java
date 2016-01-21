@@ -7,18 +7,18 @@ import java.util.ArrayList;
  */
 public class Floortile extends Solid{
 
-
-    public Floortile(int posXinit, int posYinit, ArrayList<Boolean> initOccupiedLevels)
+    private double floorSpeed;
+    public Floortile(int posXinit, int posYinit, ArrayList<Boolean> initOccupiedLevels, Screen screen)
     {
-        super( posXinit, posYinit, 15, initOccupiedLevels);
-
+        super( posXinit, posYinit, 15, initOccupiedLevels, screen);
+        floorSpeed = 0.1 ;
     }
 
 
 
     @Override
     public void paintComponent(Graphics g){
-        g.setColor(Color.GRAY);
+        g.setColor(Color.BLACK);
         g.fillRect(0, 0, 50, 50);
     }
 
@@ -28,12 +28,24 @@ public class Floortile extends Solid{
     }
 
     @Override
-    public void forward(){
+    public void forward(double dTime){
         if(posY > 600) {
             posY = 0;
             posX = (int)(Math.random()*360);
         }
         posY += 1;
-        super.forward();
+        super.forward(dTime);
+    }
+
+    @Override
+    public double processSpeedX(double dTime) {
+            int speed = 0;
+        return speed;
+    }
+
+    @Override
+    public double processSpeedY(double dTime) {
+        double speed = floorSpeed;
+        return speed;
     }
 }

@@ -16,13 +16,16 @@ public class Screen extends JFrame {
 
     private List<Point> players;
     private List<Floortile> floortiles;
-
+    private double lastUpdateTime;
     public Screen(){
         super("Get of my Road !!");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(360, 640);
         setLayout(null);
         setResizable(false);
+
+        lastUpdateTime = System.currentTimeMillis();
+
 
         players = new ArrayList<Point>();
         floortiles = new ArrayList<Floortile>();
@@ -36,6 +39,8 @@ public class Screen extends JFrame {
         keys1.add(KeyEvent.VK_DOWN);
         keys1.add(KeyEvent.VK_LEFT);
         keys1.add(KeyEvent.VK_RIGHT);
+        //pour arreter les pions
+        keys1.add(KeyEvent.VK_SPACE);
         playerInitialisation(keys1, 0, 0);
 
 
@@ -44,9 +49,12 @@ public class Screen extends JFrame {
         keys2.add(KeyEvent.VK_S);
         keys2.add(KeyEvent.VK_Q);
         keys2.add(KeyEvent.VK_D);
+        // pour arréter les pions
+        keys2.add(KeyEvent.VK_SPACE);
+
         playerInitialisation(keys2, 50, 50);
 
-        floortileInitialisation(150, -500);
+        //floortileInitialisation(150, -500);
 
         setVisible(true);
 
@@ -81,7 +89,7 @@ public class Screen extends JFrame {
     }
 
     public void floortileInitialisation(int initPosX, int initPosY){
-        Floortile FloorTile1 = new Floortile (initPosX, initPosY, LEVELS);
+        Floortile FloorTile1 = new Floortile (initPosX, initPosY, LEVELS,this);
         floortiles.add(FloorTile1);
         getContentPane().add(FloorTile1);
     }
@@ -90,11 +98,12 @@ public class Screen extends JFrame {
 
         @Override
         public void run() {
+            double dTime = (System.currentTimeMillis() - lastUpdateTime)*0.001;
             for(Point p : players){
-                p.forward();
+                p.forward(dTime);
             }
             for(Floortile f : floortiles){
-                f.forward();
+                f.forward(dTime);
             }
         }
     }

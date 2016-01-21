@@ -20,20 +20,21 @@ public class Solid extends JPanel{
     // on vas l'utilisé comme priorité pour l'instant
     protected int mass ;
     // donné pour l'accélération et la vitesse:
-    protected int speedX = 00;
-    protected int speedY = 00;
-    protected int accelX = 00;
-    protected int accelY = 00;
-
+    protected double speedX = 00;
+    protected double speedY = 00;
+    protected double accelX = 00;
+    protected double accelY = 00;
+    protected Screen solidScreen;
+    private int sumForcesX = 0;
+    private int sumForcesY = 0;
 
     // liste des forces extérieures pour les calculs du vecteur accélération
     // Chaque élément de extforce est une liste avec comme premier élément x et deuxieme y des vecteur forces concerné
-    private ArrayList<List<Integer>> appliedForces;
     // niveau dans l'environement : sol, bas ,milieu, haut, (0,1,2,3)
     private ArrayList<Boolean> occupiedLevel ;
 
 
-    public Solid( int posXinit, int posYinit, int massInit, ArrayList<Boolean> initialOccupiedLevel){
+    public Solid( int posXinit, int posYinit, int massInit, ArrayList<Boolean> initialOccupiedLevel, Screen solidScreenInit){
         super();
         mass = massInit;
 
@@ -42,8 +43,8 @@ public class Solid extends JPanel{
 
         occupiedLevel = initialOccupiedLevel;
         SOLIDLIST.add(this);
-        appliedForces = new ArrayList<List<Integer>>();
         occupiedLevel = initialOccupiedLevel;
+        solidScreen = solidScreenInit;
     }
 
     public int getPosX() {
@@ -55,7 +56,6 @@ public class Solid extends JPanel{
     }
 
     public int getMass(){return mass;}
-
     public void setPosX(int posX) {
         this.lastPosX = posX;
         this.posX = posX;
@@ -66,37 +66,29 @@ public class Solid extends JPanel{
         this.posY = posY;
     }
 
-    public void addForce( List newForce)
+    public void addForce(int forceX,int forceY)
     {
-        appliedForces.add(newForce);
-        updateAceleration();
-    }
-    protected void updateAceleration ()
-    {
-
-        int sumX= 0;
-        int sumY= 0;
-        for (int i = 0; i< appliedForces.size(); i ++)
-        {
-            sumX += appliedForces.get(i).get(0);
-        }
-        if( sumX >( mass* 0.5))
-        {
-            sumX += mass* 0.3 ;
-        }
-        else
-        {
-            sumX=0;
-        }
-        accelX = sumX/ mass;
-
-        for (int i = 0; i< appliedForces.size() ; i++)
-        {
-            sumY+= appliedForces.get(i).get(0);
-        }
+        sumForcesY += forceY;
+        sumForcesX += forceX;
+        System.out.println("sumForce X : "+ sumForcesX+"\n sumForceY : "+sumForcesY);
 
     }
-
+    public void removeForce(int forceX, int forceY)
+    {
+        sumForcesX += -forceX;
+        sumForcesY += -forceY;
+    }
+    public int getSumForcesX(){return sumForcesX;}
+    public int getSumForcesY(){return sumForcesY;}
+    public double processSpeedX(double dTime)
+    {
+        double speed = speedX +dTime * sumForcesX / mass;
+        return speed;
+    }
+    public double processSpeedY(double dTime) {
+        double speed= speedY +dTime * sumForcesY / mass;
+        return speed;
+    }
     public void checkColision()
     {
         Rectangle checkingRectangle = this.getBounds();
@@ -115,7 +107,7 @@ public class Solid extends JPanel{
 
     private void collisionHandler(Solid S)
     {
-        System.out.println("Colision !");
+        System.out.println("Colision");
         if (mass<S.getMass())
         {
             this.backward();
@@ -129,7 +121,13 @@ public class Solid extends JPanel{
 
     }
 
-    public void forward(){
+    public void forward(double dTime){
+        speedX =this.processSpeedX(dTime);
+        speedY =this.processSpeedY(dTime);
+
+        posX += dTime *speedX;
+        posY += dTime *speedY;
+
 
         checkColision();
     }
