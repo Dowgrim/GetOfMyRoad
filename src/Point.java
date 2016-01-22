@@ -16,7 +16,7 @@ public class Point extends Solid {
     private double speedXLimit = 0.05;
     private double speedYLimit = 0.05 ;
 
-    private double forceImpulse = 1;
+    private int forceImpulse = 1;
     public Point(Screen f, ArrayList<Integer> keys, int posXinit, int posYinit, ArrayList<Boolean> iniOccupiedLevel){
 
         super( posXinit, posYinit, 1, iniOccupiedLevel,f);
@@ -24,13 +24,6 @@ public class Point extends Solid {
         f.addKeyListener(new PointListener(this, keys));
     }
 
-    public void setModificateurHorizontal(int modificateurHorizontal) {
-        this.modificateurHorizontal = modificateurHorizontal;
-    }
-
-    public void setModificateurVertical(int modificateurVertical) {
-        this.modificateurVertical = modificateurVertical;
-    }
 
     @Override
     public void paintComponent(Graphics g){
@@ -46,6 +39,7 @@ public class Point extends Solid {
 
 
         super.forward(dTime);
+
         if (posX< -getWidth()/2)
         {
             posX = solidScreen.getWidth()-getWidth()/2;
@@ -65,7 +59,7 @@ public class Point extends Solid {
         }
 
     }
-
+    // pour pouvoir limiter la vitesse du pions.
     @Override
     public double processSpeedX(double dTime) {
         double speed = super.processSpeedX(dTime);
@@ -79,14 +73,12 @@ public class Point extends Solid {
         }
         return speed;
     }
-
     @Override
     public double processSpeedY(double dTime) {
         double speed = super.processSpeedY(dTime);
         if (speed>speedYLimit)
         {
             speed = speedYLimit;
-            System.out.println ("y" + speed);
         }
         else if (speed < (-speedYLimit))
         {
@@ -113,36 +105,38 @@ public class Point extends Solid {
         @Override
         public void keyPressed(KeyEvent e) {
             if(e.getKeyCode()== keys.get(0)) {
-                point.addForce(0,-2);
+                point.addForce(0,-forceImpulse);
             }
             if(e.getKeyCode()== keys.get(1)) {
-                point.addForce(0,2);
+                point.addForce(0,forceImpulse);
             }
             if(e.getKeyCode()== keys.get(2)) {
-                point.addForce(-2,0);
+                point.addForce(-forceImpulse,0);
             }
             if(e.getKeyCode()== keys.get(3)) {
-                point.addForce(2,0);
+                point.addForce(forceImpulse,0);
             }
             if(e.getKeyCode()== keys.get(4))
             {
                 point.removeForce(getSumForcesX(),getSumForcesY());
+                point.setSpeedX(0);
+                point.setSpeedY(0);
             }
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
             if(e.getKeyCode()== keys.get(0)) {
-                point.removeForce(0,-2);
+                point.removeForce(0,-forceImpulse);
             }
             if(e.getKeyCode()== keys.get(1)) {
-                point.removeForce(0,2);
+                point.removeForce(0,forceImpulse);
             }
             if(e.getKeyCode()== keys.get(2)) {
-                point.removeForce(-2,0);
+                point.removeForce(-forceImpulse,0);
             }
             if(e.getKeyCode()== keys.get(3)) {
-                point.removeForce(2,0);
+                point.removeForce(forceImpulse,0);
             }
         }
     }

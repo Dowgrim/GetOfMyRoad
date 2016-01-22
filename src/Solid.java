@@ -70,7 +70,6 @@ public class Solid extends JPanel{
     {
         sumForcesY += forceY;
         sumForcesX += forceX;
-        System.out.println("sumForce X : "+ sumForcesX+"\n sumForceY : "+sumForcesY);
 
     }
     public void removeForce(int forceX, int forceY)
@@ -80,6 +79,7 @@ public class Solid extends JPanel{
     }
     public int getSumForcesX(){return sumForcesX;}
     public int getSumForcesY(){return sumForcesY;}
+
     public double processSpeedX(double dTime)
     {
         double speed = speedX +dTime * sumForcesX / mass;
@@ -89,17 +89,34 @@ public class Solid extends JPanel{
         double speed= speedY +dTime * sumForcesY / mass;
         return speed;
     }
+
+    public void setSpeedX(double speed)
+    {
+        speedX = speed;
+    }
+    public void setSpeedY(double speed)
+    {
+        speedY = speed;
+    }
     public void checkColision()
     {
         Rectangle checkingRectangle = this.getBounds();
         Rectangle otherRectangle;
-
+        int j ;
         for (int i = 0; i< SOLIDLIST.size(); i++)
         {
             if(!(SOLIDLIST.get(i) == this)) {
-                otherRectangle = SOLIDLIST.get(i).getBounds();
-                if (checkingRectangle.intersects(otherRectangle)) {
-                    collisionHandler(SOLIDLIST.get(i));
+               j=0;
+                while (j<occupiedLevel.size()) {
+                    if (occupiedLevel.get(j) == SOLIDLIST.get(i).occupiedLevel.get(j))
+                    {
+                        j = occupiedLevel.size();
+                        otherRectangle = SOLIDLIST.get(i).getBounds();
+                        if (checkingRectangle.intersects(otherRectangle)) {
+                            collisionHandler(SOLIDLIST.get(i));
+                        }
+                    }
+                    j++;
                 }
             }
         }
