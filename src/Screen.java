@@ -12,11 +12,10 @@ import java.util.function.BooleanSupplier;
  */
 public class Screen extends JFrame {
 
-    //TODO : C'est moche mais j'en ai mare de trimbaler ce truc
 
     private List<Point> players;
     private List<Floortile> floortiles;
-    private List<List> tilesColumns = new ArrayList<>();
+    private List<TileColumn> tilesColumns = new ArrayList<>();
     private JLayeredPane layers = new JLayeredPane();
 
     private double lastUpdateTime;
@@ -58,7 +57,7 @@ public class Screen extends JFrame {
         for ( int i =0; i<4; i++)
         {
             int columnSize = getWidth()/4;
-            tilesColumns.add(columnCreator(columnSize*i,columnSize,9));
+            tilesColumns.add(new TileColumn(columnSize*i,columnSize,9,this));
         }
 
         setVisible(true);
@@ -86,25 +85,7 @@ public class Screen extends JFrame {
         }
     }
 
-    public List<Floortile> columnCreator (int posX, double size, int lenght)
-    {
-        // permet de créé les listes colones de carelage
-        List<Color> floorTilesColor = new ArrayList<>();
-        floorTilesColor.add(Color.DARK_GRAY);
-        floorTilesColor.add(Color.GRAY);
-        floorTilesColor.add(Color.BLACK);
-        int c = (int) (Math.random()*10)%3;
-        List<Floortile> column = new ArrayList<>();
-        column.add(floortileInitialisation(posX, (int) (size),floorTilesColor.get(c), (int) size));
 
-        for ( int i = 1; i < lenght+1; i++)
-        {
-            column.add(floortileInitialisation(posX, (int) (size * (i+1)),floorTilesColor.get((i+c)%3), (int) size));
-            column.get(i).setCompanion(column.get(i-1));
-        }
-        column.get(0).setCompanion(column.get(lenght));
-        return column;
-    }
     public void playerInitialisation(ArrayList<Integer> keys, int initPosX, int initPosY){
         ArrayList<Boolean> pointsLevels = new ArrayList<Boolean>();
         pointsLevels.add(false);

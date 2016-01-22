@@ -11,6 +11,7 @@ public class Floortile extends Solid{
     private Color color;
     private int sideLenght;
     private Floortile companionTile;
+    private TileColumn tileColumn;
     public Floortile(int posXinit, int posYinit, ArrayList<Boolean> initOccupiedLevels, Screen screen, Color colorInit, int size)
     {
         super( posXinit, posYinit, 15, initOccupiedLevels, screen);
@@ -26,18 +27,24 @@ public class Floortile extends Solid{
     }
     public void checkCompanion()
     {
-        double distance;
-        posX = companionTile.getPosX();
-        int compPosY = companionTile.getPosY();
-        if (compPosY<= - companionTile.getHeight())
-        {
-            posY = compPosY+getHeight();
-            if (compPosY-posY>getHeight())
-            {
-                posY = compPosY-getHeight();
+        if (companionTile != null) {
+
+            int compPosY = companionTile.getPosY();
+            if (compPosY <= -companionTile.getHeight()) {
+                posY = compPosY + getHeight();
+                if (compPosY - posY > getHeight()) {
+                    posY = compPosY - getHeight();
+                }
             }
         }
+    }
+    public void setTileColumn(TileColumn tileColumn)
+    {
+        this.tileColumn = tileColumn;
+    }
 
+    public void setFloorSpeed(double floorSpeed) {
+        this.floorSpeed = floorSpeed;
     }
 
     @Override
@@ -53,8 +60,7 @@ public class Floortile extends Solid{
 
     @Override
     public void forward(double dTime){
-        if(posY > (Math.floor(solidScreen.getHeight()/sideLenght)+2)*sideLenght) {
-            posY = -sideLenght*2;
+        if(posY > solidScreen.getHeight()) {
 
         }
         checkCompanion();
@@ -64,7 +70,7 @@ public class Floortile extends Solid{
 
     @Override
     public double processSpeedX(double dTime) {
-            int speed = 0;
+        int speed = 0;
         return speed;
     }
 
