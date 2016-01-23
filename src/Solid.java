@@ -119,6 +119,7 @@ public class Solid extends JPanel{
                         otherRectangle = SOLIDLIST.get(i).getBounds();
                         if (checkingRectangle.intersects(otherRectangle)) {
                             collisionHandler(SOLIDLIST.get(i));
+
                         }
                     }
                     j++;

@@ -19,10 +19,9 @@ public class TileColumn {
         floorTilesColor.add(Color.BLACK);
 
         int c = (int) (Math.random()*10)%3;
-        column.add(screen.floortileInitialisation(posX, (int) (size),floorTilesColor.get(c), (int) size));
 
         Floortile floortile;
-        for ( int i = 1; i < lenght+1; i++)
+        for ( int i = 0; i < lenght+1; i++)
         {
             floortile = screen.floortileInitialisation(posX, (int) (size * (i+1)),floorTilesColor.get((i+c)%3), (int) size);
             //floortile.setCompanion(column.get(i-1));
