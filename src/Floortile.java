@@ -12,6 +12,7 @@ public class Floortile extends Solid{
     private int sideLenght;
     private Floortile companionTile;
     private TileColumn tileColumn;
+
     public Floortile(int posXinit, int posYinit, ArrayList<Boolean> initOccupiedLevels, Screen screen, Color colorInit, int size)
     {
         super( posXinit, posYinit, 15, initOccupiedLevels, screen);
@@ -19,12 +20,14 @@ public class Floortile extends Solid{
         color = colorInit;
         sideLenght = size;
     }
+
     // chaque tile du carelage doit avoir un companion tile ,
     // qui est la tile précédente dans la liste, et qui permet de maintenir le carelage en place
     public void setCompanion(Floortile tile)
     {
         companionTile = tile;
     }
+
     public void checkCompanion()
     {
         if (companionTile != null) {
@@ -38,6 +41,7 @@ public class Floortile extends Solid{
             }
         }
     }
+
     public void setTileColumn(TileColumn tileColumn)
     {
         this.tileColumn = tileColumn;
@@ -61,9 +65,9 @@ public class Floortile extends Solid{
     @Override
     public void forward(double dTime){
         if(posY > solidScreen.getHeight()) {
-
+            posY = -200;
         }
-        checkCompanion();
+        //checkCompanion();
         posY += 1;
         super.forward(dTime);
     }

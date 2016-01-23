@@ -56,6 +56,7 @@ public class Solid extends JPanel{
     }
 
     public int getMass(){return mass;}
+
     public void setPosX(int posX) {
         this.lastPosX = posX;
         this.posX = posX;
@@ -70,13 +71,14 @@ public class Solid extends JPanel{
     {
         sumForcesY += forceY;
         sumForcesX += forceX;
-
     }
+
     public void removeForce(int forceX, int forceY)
     {
         sumForcesX += -forceX;
         sumForcesY += -forceY;
     }
+
     public int getSumForcesX(){return sumForcesX;}
     public int getSumForcesY(){return sumForcesY;}
 
@@ -85,6 +87,7 @@ public class Solid extends JPanel{
         double speed = speedX +dTime * sumForcesX / mass;
         return speed;
     }
+
     public double processSpeedY(double dTime) {
         double speed= speedY +dTime * sumForcesY / mass;
         return speed;
@@ -94,10 +97,12 @@ public class Solid extends JPanel{
     {
         speedX = speed;
     }
+
     public void setSpeedY(double speed)
     {
         speedY = speed;
     }
+
     public void checkColision()
     {
         Rectangle checkingRectangle = this.getBounds();
@@ -148,6 +153,7 @@ public class Solid extends JPanel{
 
         checkColision();
     }
+
     public void backward()
     {
         setPosX(lastPosX);

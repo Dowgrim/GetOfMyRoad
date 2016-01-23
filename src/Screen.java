@@ -15,7 +15,7 @@ public class Screen extends JFrame {
 
     private List<Point> players;
     private List<Floortile> floortiles;
-    private List<TileColumn> tilesColumns = new ArrayList<>();
+    private List<TileColumn> tilesColumns = new ArrayList<TileColumn>();
     private JLayeredPane layers = new JLayeredPane();
 
     private double lastUpdateTime;
@@ -31,10 +31,8 @@ public class Screen extends JFrame {
 
         lastUpdateTime = System.currentTimeMillis();
 
-
         players = new ArrayList<Point>();
         floortiles = new ArrayList<Floortile>();
-
 
         ArrayList<Integer> keys1 = new ArrayList<Integer>();
         keys1.add(KeyEvent.VK_UP);
@@ -46,7 +44,7 @@ public class Screen extends JFrame {
         playerInitialisation(keys1, 0, 0);
 
 
-        ArrayList<Integer> keys2= new ArrayList<Integer>();
+        ArrayList<Integer> keys2 = new ArrayList<Integer>();
         keys2.add(KeyEvent.VK_Z);
         keys2.add(KeyEvent.VK_S);
         keys2.add(KeyEvent.VK_Q);
@@ -94,7 +92,7 @@ public class Screen extends JFrame {
         pointsLevels.add(true);
         Point p1 = new Point(this, keys, initPosX, initPosY, pointsLevels);
         players.add(p1);
-        layers.add(p1,JLayeredPane.PALETTE_LAYER,1);
+        layers.add(p1, JLayeredPane.PALETTE_LAYER, 1);
     }
 
     public Floortile floortileInitialisation(int initPosX, int initPosY, Color colorInit, int sideSize){
@@ -103,9 +101,10 @@ public class Screen extends JFrame {
         floorLevels.add(false);
         floorLevels.add(false);
         floorLevels.add(false);
+
         Floortile FloorTile1 = new Floortile (initPosX, initPosY, floorLevels,this,colorInit,sideSize);
         floortiles.add(FloorTile1);
-        layers.add(FloorTile1,JLayeredPane.DEFAULT_LAYER,10);
+        layers.add(FloorTile1, JLayeredPane.DEFAULT_LAYER, 10);
         return FloorTile1;
     }
 
