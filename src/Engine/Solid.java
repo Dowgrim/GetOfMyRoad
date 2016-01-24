@@ -1,21 +1,23 @@
-import javax.swing.*;
+package Engine;
+
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Math.abs;
 
 /**
  * Created by ThePolyBro on 15/01/2016.
  */
-public class Solid extends JPanel{
+public class Solid{
 
     private static ArrayList<Solid> SOLIDLIST = new ArrayList<Solid>();
 
-    protected int posX = 00;
-    protected int posY = 00;
-    private int lastPosX = 00;
-    private int lastPosY = 00;
+    protected Level level;
+
+    protected Localisation pos;
+    private Localisation lastPos;
+
+    protected Dimension dim;
     // la masse d'un élément, si 0 masse pas comparable
     // on vas l'utilisé comme priorité pour l'instant
     protected int mass ;
@@ -24,7 +26,6 @@ public class Solid extends JPanel{
     protected double speedY = 00;
     protected double accelX = 00;
     protected double accelY = 00;
-    protected Screen solidScreen;
     private int sumForcesX = 0;
     private int sumForcesY = 0;
 
@@ -32,39 +33,32 @@ public class Solid extends JPanel{
     // Chaque élément de extforce est une liste avec comme premier élément x et deuxieme y des vecteur forces concerné
     // niveau dans l'environement : sol, bas ,milieu, haut, (0,1,2,3)
     private ArrayList<Boolean> occupiedLevel ;
+    private Rectangle bounds;
 
 
-    public Solid( int posXinit, int posYinit, int massInit, ArrayList<Boolean> initialOccupiedLevel, Screen solidScreenInit){
-        super();
+    public Solid(Localisation posInit, Dimension dim,  int massInit, ArrayList<Boolean> initialOccupiedLevel, Level l){
+        level = l;
         mass = massInit;
 
-        posX = posXinit;
-        posY = posYinit;
+        pos = posInit;
+
+        this.dim = dim;
 
         occupiedLevel = initialOccupiedLevel;
         SOLIDLIST.add(this);
         occupiedLevel = initialOccupiedLevel;
-        solidScreen = solidScreenInit;
-    }
-
-    public int getPosX() {
-        return posX;
-    }
-
-    public int getPosY() {
-        return posY;
     }
 
     public int getMass(){return mass;}
 
-    public void setPosX(int posX) {
-        this.lastPosX = posX;
-        this.posX = posX;
+    public void setPosX(double posX) {
+        lastPos.setX(pos.getX());
+        pos.setX(posX);
     }
 
-    public void setPosY(int posY) {
-        this.lastPosY = posY;
-        this.posY = posY;
+    public void setPosY(double posY) {
+        lastPos.setY(pos.getY());
+        pos.setY(posY);
     }
 
     public void addForce(int forceX,int forceY)
@@ -103,20 +97,17 @@ public class Solid extends JPanel{
         speedY = speed;
     }
 
-    public void checkColision()
-    {
-        Rectangle checkingRectangle = this.getBounds();
+    public void checkColision() {
+        Rectangle checkingRectangle = getBounds();
         Rectangle otherRectangle;
-        int j ;
-        for (int i = 0; i< SOLIDLIST.size(); i++)
-        {
-            if(!(SOLIDLIST.get(i) == this)) {
-               j=0;
-                while (j<occupiedLevel.size()) {
-                    if (occupiedLevel.get(j) == SOLIDLIST.get(i).occupiedLevel.get(j))
-                    {
+        int j;
+        for (int i = 0; i < SOLIDLIST.size(); i++) {
+            if (!(SOLIDLIST.get(i) == this)) {
+                j = 0;
+                while (j < occupiedLevel.size()) {
+                    if (occupiedLevel.get(j) == SOLIDLIST.get(i).occupiedLevel.get(j)) {
                         j = occupiedLevel.size();
-                        otherRectangle = SOLIDLIST.get(i).getBounds();
+                        otherRectangle = new Rectangle(SOLIDLIST.get(i).getBounds());
                         if (checkingRectangle.intersects(otherRectangle)) {
                             collisionHandler(SOLIDLIST.get(i));
 
@@ -137,9 +128,11 @@ public class Solid extends JPanel{
         }
         else
         {
-            int difX = S.getPosX()-getPosX();
+            /*
+            int difX = S.getX()- pos.getX();
             int difY = S.getPosY()-getPosY();
             S.moveTo(difX,difY);
+            */
         }
 
     }
@@ -148,8 +141,8 @@ public class Solid extends JPanel{
         speedX =this.processSpeedX(dTime);
         speedY =this.processSpeedY(dTime);
 
-        posX += dTime *speedX;
-        posY += dTime *speedY;
+        pos.setX(pos.getX() + dTime *speedX);
+        pos.setY(pos.getY() + dTime * speedY);
 
 
         checkColision();
@@ -157,14 +150,33 @@ public class Solid extends JPanel{
 
     public void backward()
     {
-        setPosX(lastPosX);
-        setPosY(lastPosY);
+        setPosX(lastPos.getX());
+        setPosY(lastPos.getY());
     }
     public void moveTo(int dirX, int dirY)
     {
-        setPosX(getPosX()+dirX);
-        setPosY(getPosY()+dirY);
+        setPosX(pos.getX()+dirX);
+        setPosY(pos.getY()+dirY);
     }
 
 
+    public Rectangle getBounds() {
+        return new Rectangle((int) pos.getX(), (int) pos.getY(), (int) dim.getWidth(), (int) dim.getHeight());
+    }
+
+    public int x() {
+        return (int)pos.getX();
+    }
+
+    public int y() {
+        return (int)pos.getY();
+    }
+
+    public int w() {
+        return (int)dim.getWidth();
+    }
+
+    public int h() {
+        return (int)dim.getHeight();
+    }
 }
