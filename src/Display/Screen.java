@@ -37,6 +37,7 @@ public class Screen extends JFrame {
         //pour arreter les pions
         keys1.add(KeyEvent.VK_SPACE);
         DisplayPlayer dp1 = new DisplayPlayer(this, keys1, level.playerInitialisation(0, 0));
+        solids.add(dp1);
         layers.add(dp1, JLayeredPane.PALETTE_LAYER, 1);
 
         ArrayList<Integer> keys2 = new ArrayList<Integer>();
@@ -47,11 +48,12 @@ public class Screen extends JFrame {
         // pour arréter les pions
         keys2.add(KeyEvent.VK_SPACE);
         DisplayPlayer dp2 = new DisplayPlayer(this, keys2, level.playerInitialisation(50, 50));
+        solids.add(dp2);
         layers.add(dp2, JLayeredPane.PALETTE_LAYER, 1);
 
         int columnSize = getWidth()/4;
 
-        new DisplayTileColumn(columnSize, columnSize, 25, level, layers);
+        new DisplayTileColumn(columnSize, columnSize, 25, level, layers, this);
 
         setVisible(true);
 
@@ -59,6 +61,10 @@ public class Screen extends JFrame {
             diplay();
         }
 
+    }
+
+    public void addSolids(DisplaySolid solid){
+        solids.add(solid);
     }
 
     private void diplay() {
