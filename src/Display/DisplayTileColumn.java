@@ -22,13 +22,13 @@ public class DisplayTileColumn {
         int c = (int) (Math.random()*10)%3;
         System.out.println("test");
         Floortile floortile;
-
+        columnSpeed = 0.5;
         for ( int i = 0; i < lenght+1; i++) {
             for (int j = 0; j < 10; j++){
                 floortile = level.floortileInitialisation(interval * j, (int) (size * (i)), (int) size);
                 DisplayFloortile df = new DisplayFloortile(new Color((int) (Math.random() * 255),
                         (int) (Math.random() * 255), (int) (Math.random() * 255)), floortile);
-                layers.add(df, JLayeredPane.PALETTE_LAYER, 1);
+                layers.add(df, JLayeredPane.DEFAULT_LAYER, 1);
                 floortile.setFloorSpeed(columnSpeed);
                 screen.addSolids(df);
                 column.add(floortile);

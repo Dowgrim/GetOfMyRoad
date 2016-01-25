@@ -58,7 +58,7 @@ public class Screen extends JFrame {
         setVisible(true);
 
         while(true){
-            diplay();
+            display();
         }
 
     }
@@ -67,7 +67,7 @@ public class Screen extends JFrame {
         solids.add(solid);
     }
 
-    private void diplay() {
+    private void display() {
         for(DisplaySolid d : solids){
             d.display();
         }

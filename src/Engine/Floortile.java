@@ -25,7 +25,7 @@ public class Floortile extends Solid{
     @Override
     public void forward(double dTime){
         if(pos.getY() > (Math.ceil(level.getH()/dim.getHeight())+1)*dim.getHeight()) {
-            pos.setY(-dim.getHeight());
+            pos.setY(-h());
         }
 
         super.forward(dTime);

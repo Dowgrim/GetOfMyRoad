@@ -37,11 +37,12 @@ public class Solid{
 
 
     public Solid(Localisation posInit, Dimension dim,  int massInit, ArrayList<Boolean> initialOccupiedLevel, Level l){
+
         level = l;
         mass = massInit;
 
         pos = posInit;
-
+        lastPos = posInit;
         this.dim = dim;
 
         occupiedLevel = initialOccupiedLevel;

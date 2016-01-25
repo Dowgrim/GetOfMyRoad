@@ -78,7 +78,6 @@ public class Level {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             double dTime = (System.currentTimeMillis() - lastUpdateTime)*0.001;
             for(Player p : players){
                 p.forward(dTime);

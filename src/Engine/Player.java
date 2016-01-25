@@ -32,9 +32,9 @@ public class Player extends Solid {
         {
             pos.setX(level.getW()-w()/2);
         }
-        else if (x() > (level.getW()-x()/2))
+        else if (x() > (level.getW()-w()/2))
         {
-            setPosX(w()/2);
+            setPosX(-w()/2);
         }
 
         if (y() < 0 )
