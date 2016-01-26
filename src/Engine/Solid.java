@@ -48,6 +48,7 @@ public class Solid{
         occupiedLevel = initialOccupiedLevel;
         SOLIDLIST.add(this);
         occupiedLevel = initialOccupiedLevel;
+
     }
 
     public int getMass(){return mass;}
@@ -146,7 +147,7 @@ public class Solid{
         pos.setY(pos.getY() + dTime * speedY);
 
 
-        checkColision();
+        //checkColision();
     }
 
     public void backward()

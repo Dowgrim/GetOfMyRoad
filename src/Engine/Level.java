@@ -79,6 +79,7 @@ public class Level {
                 e.printStackTrace();
             }
             double dTime = (System.currentTimeMillis() - lastUpdateTime)*0.001;
+            lastUpdateTime = System.currentTimeMillis();
             for(Player p : players){
                 p.forward(dTime);
             }

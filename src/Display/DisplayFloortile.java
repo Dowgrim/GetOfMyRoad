@@ -19,7 +19,7 @@ public class DisplayFloortile extends DisplaySolid {
     @Override
     public void paintComponent(Graphics g){
         g.setColor(color);
-        g.fillRect(solid.x(), solid.y(), solid.w(), solid.h());
+        g.fillRect(0, 0, solid.w(), solid.h());
     }
 
 }
