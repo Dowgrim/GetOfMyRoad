@@ -10,13 +10,13 @@ import java.util.ArrayList;
  */
 public class Player extends Solid {
 
-    public static int FORCEIMPULSE = 1;
+    public static int FORCEIMPULSE = 50;
 
     private int modificateurHorizontal = 0;
     private int modificateurVertical = 0;
     // speed limit pour éviter une accélération infini et un manque de lisibilité
-    private double speedXLimit = 0.05;
-    private double speedYLimit = 0.05 ;
+    private double speedXLimit = 50;
+    private double speedYLimit = 50 ;
 
     public Player(Localisation posinit, Dimension dimInit, ArrayList<Boolean> iniOccupiedLevel, Level l){
 
