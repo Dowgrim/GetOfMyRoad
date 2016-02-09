@@ -80,7 +80,7 @@ public class Solid{
 
     public double processSpeedX(double dTime)
     {
-        double speed = speedX +dTime * sumForcesX / mass;
+        double speed = speedX + dTime * sumForcesX / mass;
         return speed;
     }
 

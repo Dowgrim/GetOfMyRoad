@@ -59,6 +59,11 @@ public class Screen extends JFrame {
 
         setVisible(true);
 
+        synchronized (level) {
+            level.notify();
+        }
+
+
         while(true){
             display();
         }

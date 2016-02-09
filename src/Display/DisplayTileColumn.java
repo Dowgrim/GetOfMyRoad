@@ -20,7 +20,6 @@ public class DisplayTileColumn {
     {
         level = levelInit;
         int c = (int) (Math.random()*10)%3;
-        System.out.println("test");
         Floortile floortile;
         columnSpeed = 50;
         for ( int i = 0; i < lenght+1; i++) {

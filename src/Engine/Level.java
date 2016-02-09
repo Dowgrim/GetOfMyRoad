@@ -10,6 +10,8 @@ import java.util.Timer;
  */
 public class Level {
 
+    private boolean START = false;
+
 
     private List<Player> players;
     private List<Floortile> floortiles;
@@ -30,12 +32,23 @@ public class Level {
 
         Thread t = new Thread(){
             public void run(){
+                synchronized (MocheMaisSimplifieLaVie()) {
+                    try {
+                        MocheMaisSimplifieLaVie().wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 Timer time = new Timer("lol");
-                time.schedule(new TaskScheduled(), 0, 6);
+                time.schedule(new TaskScheduled(), 0, 20);
             }
         };
         t.start();
 
+    }
+
+    private Level MocheMaisSimplifieLaVie(){
+        return this;
     }
 
     public Player playerInitialisation(int initPosX, int initPosY){
@@ -69,17 +82,17 @@ public class Level {
         return (int)levelDimension.getHeight();
     }
 
+    public void start() {
+
+    }
+
     public class TaskScheduled extends TimerTask {
 
         @Override
         public void run() {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             double dTime = (System.currentTimeMillis() - lastUpdateTime)*0.001;
             lastUpdateTime = System.currentTimeMillis();
+
             for(Player p : players){
                 p.forward(dTime);
             }
