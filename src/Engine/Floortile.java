@@ -32,15 +32,14 @@ public class Floortile extends Solid{
     }
 
     @Override
-    public double processSpeedX(double dTime) {
+    public void processSpeedX(double dTime) {
         int speed = 0;
-        return speed;
+        speedX = 0;
     }
 
     @Override
-    public double processSpeedY(double dTime) {
-        double speed = floorSpeed;
-        return speed;
+    public void processSpeedY(double dTime) {
+        speedY = floorSpeed;
     }
 
     @Override

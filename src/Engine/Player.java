@@ -15,8 +15,8 @@ public class Player extends Solid {
     private int modificateurHorizontal = 0;
     private int modificateurVertical = 0;
     // speed limit pour éviter une accélération infini et un manque de lisibilité
-    private double speedXLimit = 50;
-    private double speedYLimit = 50 ;
+    private double speedXLimit = 100;
+    private double speedYLimit = 100;
 
     public Player(Localisation posinit, Dimension dimInit, ArrayList<Boolean> iniOccupiedLevel, Level l){
 
@@ -28,9 +28,9 @@ public class Player extends Solid {
 
         super.forward(dTime);
 
-        if (pos.getX() < -dim.getWidth()/2)
+        if (x() < -dim.getWidth()/2)
         {
-            pos.setX(level.getW()-w()/2);
+            setPosX(level.getW()-w()/2);
         }
         else if (x() > (level.getW()-w()/2))
         {
@@ -49,30 +49,28 @@ public class Player extends Solid {
     }
     // pour pouvoir limiter la vitesse du pions.
     @Override
-    public double processSpeedX(double dTime) {
-        double speed = super.processSpeedX(dTime);
-        if (speed>speedXLimit)
+    public void processSpeedX(double dTime) {
+        super.processSpeedX(dTime);
+        if (speedX > speedXLimit)
         {
-            speed = speedXLimit;
+            speedX = speedXLimit;
         }
-        else if (speed< (-speedXLimit))
+        else if (speedX < (-speedXLimit))
         {
-            speed = -speedXLimit;
+            speedX = -speedXLimit;
         }
-        return speed;
     }
     @Override
-    public double processSpeedY(double dTime) {
-        double speed = super.processSpeedY(dTime);
-        if (speed>speedYLimit)
+    public void processSpeedY(double dTime) {
+        super.processSpeedY(dTime);
+        if (speedY > speedYLimit)
         {
-            speed = speedYLimit;
+            speedY = speedYLimit;
         }
-        else if (speed < (-speedYLimit))
+        else if (speedY < (-speedYLimit))
         {
-            speed = -speedYLimit;
+            speedY = -speedYLimit;
         }
-        return speed;
     }
 
 

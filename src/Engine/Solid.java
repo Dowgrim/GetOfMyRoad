@@ -28,7 +28,7 @@ public class Solid{
     protected double accelY = 00;
     private int sumForcesX = 0;
     private int sumForcesY = 0;
-
+    private int forceMax = 300;
     // liste des forces extérieures pour les calculs du vecteur accélération
     // Chaque élément de extforce est une liste avec comme premier élément x et deuxieme y des vecteur forces concerné
     // niveau dans l'environement : sol, bas ,milieu, haut, (0,1,2,3)
@@ -65,8 +65,8 @@ public class Solid{
 
     public void addForce(int forceX,int forceY)
     {
-        sumForcesY += forceY;
-        sumForcesX += forceX;
+        sumForcesX += forceX % forceMax;
+        sumForcesY += forceY % forceMax;
     }
 
     public void removeForce(int forceX, int forceY)
@@ -78,15 +78,19 @@ public class Solid{
     public int getSumForcesX(){return sumForcesX;}
     public int getSumForcesY(){return sumForcesY;}
 
-    public double processSpeedX(double dTime)
+    public void processSpeedX(double dTime)
     {
         double speed = speedX + dTime * sumForcesX / mass;
-        return speed;
+        if(sumForcesX != 0)
+            sumForcesX -= (sumForcesX > 0 ? 2 : -2);
+        speedX = speed;
     }
 
-    public double processSpeedY(double dTime) {
-        double speed= speedY +dTime * sumForcesY / mass;
-        return speed;
+    public void processSpeedY(double dTime) {
+        double speed = speedY + dTime * sumForcesY / mass;
+        if(sumForcesY != 0)
+            sumForcesY -= (sumForcesY > 0 ? 2 : -2);
+        speedY = speed;
     }
 
     public void setSpeedX(double speed)
@@ -140,10 +144,10 @@ public class Solid{
     }
 
     public void forward(double dTime){
-        speedX =this.processSpeedX(dTime);
-        speedY =this.processSpeedY(dTime);
+        processSpeedX(dTime);
+        processSpeedY(dTime);
 
-        pos.setX(pos.getX() + dTime *speedX);
+        pos.setX(pos.getX() + dTime * speedX);
         pos.setY(pos.getY() + dTime * speedY);
 
 

@@ -64,7 +64,7 @@ public class DisplayPlayer extends DisplaySolid {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            if(e.getKeyCode()== keys.get(0)) {
+            /*if(e.getKeyCode()== keys.get(0)) {
                 player.removeForce(0,-Player.FORCEIMPULSE);
             }
             if(e.getKeyCode()== keys.get(1)) {
@@ -75,7 +75,7 @@ public class DisplayPlayer extends DisplaySolid {
             }
             if(e.getKeyCode()== keys.get(3)) {
                 player.removeForce(Player.FORCEIMPULSE,0);
-            }
+            }*/
         }
     }
 }
