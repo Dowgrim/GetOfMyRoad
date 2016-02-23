@@ -43,16 +43,16 @@ public class DisplayPlayer extends DisplaySolid {
         @Override
         public void keyPressed(KeyEvent e) {
             if(e.getKeyCode()== keys.get(0)) {
-                player.addForce(0,-(Player.FORCEIMPULSE));
+                player.setPlayerConstrain(0,-(Player.FORCEIMPULSE));
             }
             if(e.getKeyCode()== keys.get(1)) {
-                player.addForce(0,Player.FORCEIMPULSE);
+                player.setPlayerConstrain(0,Player.FORCEIMPULSE);
             }
             if(e.getKeyCode()== keys.get(2)) {
-                player.addForce(-Player.FORCEIMPULSE,0);
+                player.setPlayerConstrain(-Player.FORCEIMPULSE,0);
             }
             if(e.getKeyCode()== keys.get(3)) {
-                player.addForce(Player.FORCEIMPULSE,0);
+                player.setPlayerConstrain(Player.FORCEIMPULSE,0);
             }
             if(e.getKeyCode()== keys.get(4))
             {

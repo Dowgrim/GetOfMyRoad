@@ -93,6 +93,7 @@ public class Solid{
         speedY = speed;
     }
 
+
     public void setSpeedX(double speed)
     {
         speedX = speed;

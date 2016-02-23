@@ -17,6 +17,12 @@ public class Player extends Solid {
     // speed limit pour éviter une accélération infini et un manque de lisibilité
     private double speedXLimit = 100;
     private double speedYLimit = 100;
+    // contrainte appliquer par le joueur
+    private double playerXConstrain;
+    private double playerYConstrain;
+    // limite sur les contraint du joueur:
+    private double playerXConstrainLimit= 50;
+    private double playerYConstrainLimit = 50 ;
 
     public Player(Localisation posinit, Dimension dimInit, ArrayList<Boolean> iniOccupiedLevel, Level l){
 
@@ -72,6 +78,22 @@ public class Player extends Solid {
             speedY = -speedYLimit;
         }
     }
+    public void setPlayerXConstrain( double constrain)
+    {
 
+        playerXConstrain=(constrain>playerXConstrainLimit? playerXConstrainLimit:constrain);
 
+    }
+    public void setPlayerYConstrain(double constrain)
+    {
+        playerYConstrain = (constrain>playerYConstrainLimit ? playerYConstrainLimit : constrain);
+
+    }
+    public void setPlayerConstrain(double xConstrain, double yConstrain)
+    {
+        setPlayerXConstrain(xConstrain);
+
+        setPlayerYConstrain(yConstrain);
+
+    }
 }
