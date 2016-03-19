@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Michael on 12/01/2016.
+ *
  */
 public class Player extends Solid {
 
@@ -56,7 +57,7 @@ public class Player extends Solid {
     // pour pouvoir limiter la vitesse du pions.
     @Override
     public void processSpeedX(double dTime) {
-        super.processSpeedX(dTime);
+        double speed = speedX + dTime * (sumForcesX+playerXConstrain) / mass;
         if (speedX > speedXLimit)
         {
             speedX = speedXLimit;
@@ -65,25 +66,36 @@ public class Player extends Solid {
         {
             speedX = -speedXLimit;
         }
+        if(sumForcesX != 0)
+            sumForcesX -= (sumForcesX > 0 ? 2 : -2);
+
     }
     @Override
     public void processSpeedY(double dTime) {
-        super.processSpeedY(dTime);
+        double speed = speedY + dTime * (sumForcesY+playerYConstrain) / mass;
+
+        speedY = speed;
         if (speedY > speedYLimit)
         {
             speedY = speedYLimit;
         }
+
         else if (speedY < (-speedYLimit))
         {
             speedY = -speedYLimit;
         }
+
+        if(sumForcesY != 0)
+            sumForcesY -= (sumForcesY > 0 ? 2 : -2);
     }
     public void setPlayerXConstrain( double constrain)
     {
 
         playerXConstrain=(constrain>playerXConstrainLimit? playerXConstrainLimit:constrain);
 
+
     }
+
     public void setPlayerYConstrain(double constrain)
     {
         playerYConstrain = (constrain>playerYConstrainLimit ? playerYConstrainLimit : constrain);

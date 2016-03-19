@@ -22,12 +22,16 @@ public class Solid{
     // on vas l'utilisé comme priorité pour l'instant
     protected int mass ;
     // donné pour l'accélération et la vitesse:
+
     protected double speedX = 00;
     protected double speedY = 00;
+
     protected double accelX = 00;
     protected double accelY = 00;
-    private int sumForcesX = 0;
-    private int sumForcesY = 0;
+
+    protected int sumForcesX = 0;
+    protected int sumForcesY = 0;
+
     private int forceMax = 300;
     // liste des forces extérieures pour les calculs du vecteur accélération
     // Chaque élément de extforce est une liste avec comme premier élément x et deuxieme y des vecteur forces concerné
@@ -81,15 +85,12 @@ public class Solid{
     public void processSpeedX(double dTime)
     {
         double speed = speedX + dTime * sumForcesX / mass;
-        if(sumForcesX != 0)
-            sumForcesX -= (sumForcesX > 0 ? 2 : -2);
         speedX = speed;
     }
 
     public void processSpeedY(double dTime) {
         double speed = speedY + dTime * sumForcesY / mass;
-        if(sumForcesY != 0)
-            sumForcesY -= (sumForcesY > 0 ? 2 : -2);
+
         speedY = speed;
     }
 
