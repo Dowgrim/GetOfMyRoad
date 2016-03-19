@@ -81,9 +81,10 @@ public class Solid{
 
     public int getSumForcesX(){return sumForcesX;}
     public int getSumForcesY(){return sumForcesY;}
-
+    // on calcule la vitesse a partire de la somme des forces qui s'apliquent au solide
     public void processSpeedX(double dTime)
     {
+
         double speed = speedX + dTime * sumForcesX / mass;
         speedX = speed;
     }

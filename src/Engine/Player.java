@@ -11,19 +11,19 @@ import java.util.ArrayList;
  */
 public class Player extends Solid {
 
-    public static int FORCEIMPULSE = 50;
 
     private int modificateurHorizontal = 0;
     private int modificateurVertical = 0;
     // speed limit pour éviter une accélération infini et un manque de lisibilité
     private double speedXLimit = 100;
-    private double speedYLimit = 100;
+    private double speedYLimit = 150;
     // contrainte appliquer par le joueur
     private double playerXConstrain;
     private double playerYConstrain;
     // limite sur les contraint du joueur:
-    private double playerXConstrainLimit= 50;
-    private double playerYConstrainLimit = 50 ;
+    public static int FORCEIMPULSE =        500;
+  private double playerXConstrainLimit=   500;
+    private double playerYConstrainLimit =  500 ;
 
     public Player(Localisation posinit, Dimension dimInit, ArrayList<Boolean> iniOccupiedLevel, Level l){
 
@@ -34,7 +34,7 @@ public class Player extends Solid {
     public void forward(double dTime){
 
         super.forward(dTime);
-
+        // faire boucler sur les bord de l'écran les pions :
         if (x() < -dim.getWidth()/2)
         {
             setPosX(level.getW()-w()/2);
@@ -58,6 +58,7 @@ public class Player extends Solid {
     @Override
     public void processSpeedX(double dTime) {
         double speed = speedX + dTime * (sumForcesX+playerXConstrain) / mass;
+        speedX = speed;
         if (speedX > speedXLimit)
         {
             speedX = speedXLimit;
@@ -90,7 +91,7 @@ public class Player extends Solid {
     }
     public void setPlayerXConstrain( double constrain)
     {
-
+        System.out.println(" x constrain" + constrain);
         playerXConstrain=(constrain>playerXConstrainLimit? playerXConstrainLimit:constrain);
 
 
