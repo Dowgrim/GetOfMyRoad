@@ -18,12 +18,16 @@ public class Level {
 
     private Dimension levelDimension;
 
+    protected Physician levelPhysician;
+
     private double lastUpdateTime;
 
 
     public Level(Dimension dim){
 
         levelDimension = dim;
+
+        levelPhysician = new Physician();
 
         lastUpdateTime = System.currentTimeMillis();
 
@@ -99,6 +103,8 @@ public class Level {
             for(Floortile f : floortiles){
                 f.forward(dTime);
             }
+            System.out.println(" colision handler");
+            levelPhysician.colisionHandler();
         }
     }
 

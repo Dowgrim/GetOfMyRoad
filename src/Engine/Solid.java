@@ -1,7 +1,8 @@
 package Engine;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.List;
+import java.util.*;
 
 import static java.lang.Math.abs;
 
@@ -58,6 +59,7 @@ public class Solid{
     public int getMass(){return mass;}
 
     public void setPosX(double posX) {
+        // on met a jour les Lastpos afin de pouvoir reculer si il y as colision
         lastPos.setX(pos.getX());
         pos.setX(posX);
     }
@@ -66,13 +68,13 @@ public class Solid{
         lastPos.setY(pos.getY());
         pos.setY(posY);
     }
-
+    // Permet d'ajouter une valeur de force a la somme des forces
     public void addForce(int forceX,int forceY)
     {
-        sumForcesX += forceX % forceMax;
-        sumForcesY += forceY % forceMax;
+        sumForcesX += forceX ;
+        sumForcesY += forceY ;
     }
-
+    // permet de diminuer le total des force d'une valeur de force
     public void removeForce(int forceX, int forceY)
     {
         sumForcesX += -forceX;
@@ -84,7 +86,6 @@ public class Solid{
     // on calcule la vitesse a partire de la somme des forces qui s'apliquent au solide
     public void processSpeedX(double dTime)
     {
-
         double speed = speedX + dTime * sumForcesX / mass;
         speedX = speed;
     }
@@ -105,20 +106,28 @@ public class Solid{
     {
         speedY = speed;
     }
-
+    // vérificateur de colision
     public void checkColision() {
+        // on fait une AABB autour de notre objet pour detecter la colision
         Rectangle checkingRectangle = getBounds();
         Rectangle otherRectangle;
         int j;
+        // on navigue dans les solid pour vérifier les colisions
         for (int i = 0; i < SOLIDLIST.size(); i++) {
             if (!(SOLIDLIST.get(i) == this)) {
                 j = 0;
+                //sont-ils sur le même niveau  ?
                 while (j < occupiedLevel.size()) {
                     if (occupiedLevel.get(j) == SOLIDLIST.get(i).occupiedLevel.get(j)) {
                         j = occupiedLevel.size();
                         otherRectangle = new Rectangle(SOLIDLIST.get(i).getBounds());
+                        // si les 2 AABB des 2 objects se rencontre
                         if (checkingRectangle.intersects(otherRectangle)) {
-                            collisionHandler(SOLIDLIST.get(i));
+                            java.util.List<Solid> colision = new ArrayList<Solid>();
+                            colision.add(this);
+                            colision.add(SOLIDLIST.get(i));
+
+                            level.levelPhysician.colisionAdder(colision);
 
                         }
                     }
@@ -127,11 +136,11 @@ public class Solid{
             }
         }
     }
-
+    // réaction a la colision avec un solid
     private void collisionHandler(Solid S)
     {
         System.out.println("Colision");
-        if (mass<S.getMass())
+        if (mass<=S.getMass())
         {
             this.backward();
         }
@@ -154,7 +163,7 @@ public class Solid{
         pos.setY(pos.getY() + dTime * speedY);
 
 
-        //checkColision();
+        checkColision();
     }
 
     public void backward()
@@ -187,5 +196,21 @@ public class Solid{
 
     public int h() {
         return (int)dim.getHeight();
+    }
+
+    public double centerX(){ return x()+(w()/2); }
+
+    public double centerY() {return y()+(h()/2);}
+
+    public double getCineticEnergyX() {
+        return 1/2*mass*speedX*speedX;
+    }
+    public double getCineticEnergyY()
+    {
+        return 1/2*mass*speedY*speedY;
+    }
+    public double getCineticEngergyTot()
+    {
+        return Math.sqrt(Math.pow(getCineticEnergyX(),2)+Math.pow(getCineticEnergyY(),2));
     }
 }
