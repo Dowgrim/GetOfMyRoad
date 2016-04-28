@@ -14,6 +14,7 @@ public class TheGame {
     public TheGame(){
         level = new Level(new Dimension(360, 640));
         screen = new Screen(level);
+
     }
 
 

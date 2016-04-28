@@ -86,6 +86,14 @@ public class Level {
         return (int)levelDimension.getHeight();
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public List<Floortile> getFloortiles() {
+        return floortiles;
+    }
+
     public void start() {
 
     }
@@ -103,7 +111,6 @@ public class Level {
             for(Floortile f : floortiles){
                 f.forward(dTime);
             }
-            System.out.println(" colision handler");
             levelPhysician.colisionHandler();
         }
     }

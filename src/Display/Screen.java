@@ -16,7 +16,7 @@ public class Screen extends JFrame {
     private Level level;
     private ArrayList<DisplaySolid> solids = new ArrayList<DisplaySolid>();
 
-
+    private InformationScreen informationScreen ;
     private JLayeredPane layers = new JLayeredPane();
 
     public Screen(Level l){
@@ -38,7 +38,7 @@ public class Screen extends JFrame {
         keys1.add(KeyEvent.VK_RIGHT);
         //pour arreter les pions
         keys1.add(KeyEvent.VK_SPACE);
-        DisplayPlayer dp1 = new DisplayPlayer(this, keys1, level.playerInitialisation(0, 0));
+        DisplayPlayer dp1 = new DisplayPlayer(this, keys1, level.playerInitialisation(50, 0));
         solids.add(dp1);
         layers.add(dp1, JLayeredPane.PALETTE_LAYER, 1);
 
@@ -58,7 +58,9 @@ public class Screen extends JFrame {
         new DisplayTileColumn(columnSize, columnSize, 25, level, layers, this);
 
         setVisible(true);
-
+        informationScreen = new InformationScreen(l);
+        informationScreen.setBounds(this.getX() + getWidth(),0,400,400);
+        informationScreen.setLayout(null);
         synchronized (level) {
             level.notify();
         }
@@ -66,6 +68,7 @@ public class Screen extends JFrame {
 
         while(true){
             display();
+            informationScreen.update();
         }
 
     }

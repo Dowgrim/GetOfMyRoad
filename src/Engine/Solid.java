@@ -8,7 +8,10 @@ import static java.lang.Math.abs;
 
 /**
  * Created by ThePolyBro on 15/01/2016.
+ * class décrivant le comportement générale d'un solide d'un point de vue physique.
  */
+//TODO: ajouter un attribue "forme",pour la gestion des colision ( carré, triangle, circle)
+
 public class Solid{
 
     private static ArrayList<Solid> SOLIDLIST = new ArrayList<Solid>();
