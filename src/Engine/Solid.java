@@ -1,7 +1,6 @@
 package Engine;
 
 import java.awt.*;
-import java.awt.List;
 import java.util.*;
 
 import static java.lang.Math.abs;
@@ -185,11 +184,11 @@ public class Solid{
         return new Rectangle((int) pos.getX(), (int) pos.getY(), (int) dim.getWidth(), (int) dim.getHeight());
     }
 
-    public int x() {
+    public double x() {
         return (int)pos.getX();
     }
 
-    public int y() {
+    public double y() {
         return (int)pos.getY();
     }
 

@@ -64,18 +64,18 @@ public class DisplayPlayer extends DisplaySolid {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            /*if(e.getKeyCode()== keys.get(0)) {
-                player.removeForce(0,-Player.FORCEIMPULSE);
+            if(e.getKeyCode()== keys.get(0)) {
+                player.setPlayerYConstrain(0);
             }
             if(e.getKeyCode()== keys.get(1)) {
-                player.removeForce(0,Player.FORCEIMPULSE);
+                player.setPlayerYConstrain(0);
             }
             if(e.getKeyCode()== keys.get(2)) {
-                player.removeForce(-Player.FORCEIMPULSE,0);
+                player.setPlayerXConstrain(0);
             }
             if(e.getKeyCode()== keys.get(3)) {
-                player.removeForce(Player.FORCEIMPULSE,0);
-            }*/
+                player.setPlayerXConstrain(0);
+            }
         }
     }
 }

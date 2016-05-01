@@ -25,8 +25,8 @@ public class DisplayTileColumn {
         for ( int i = 0; i < lenght+1; i++) {
             for (int j = 0; j < 10; j++){
                 floortile = level.floortileInitialisation(interval * j, (int) (size * (i)), (int) size);
-                DisplayFloortile df = new DisplayFloortile(new Color((int) (Math.random() * 150),
-                        (int) (Math.random() * 150), (int) (Math.random() * 150)), floortile);
+                DisplayFloortile df = new DisplayFloortile(new Color((int) (Math.random() * 100),
+                        (int) (Math.random() * 100), (int) (Math.random() * 100)), floortile);
                 layers.add(df, JLayeredPane.DEFAULT_LAYER, 1);
                 floortile.setFloorSpeed(columnSpeed);
                 screen.addSolids(df);

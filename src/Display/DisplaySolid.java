@@ -22,7 +22,7 @@ public class DisplaySolid extends JPanel {
     }
 
     public void display() {
-        setBounds(solid.x(), solid.y(), solid.w(), solid.h());
+        setBounds((int) solid.x(), (int) solid.y(), solid.w(), solid.h());
     }
 
 

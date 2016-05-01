@@ -22,7 +22,6 @@ public class Level {
 
     private double lastUpdateTime;
 
-
     public Level(Dimension dim){
 
         levelDimension = dim;
