@@ -13,7 +13,7 @@ import static java.lang.Math.abs;
 
 public class Solid{
 
-    private static ArrayList<Solid> SOLIDLIST = new ArrayList<Solid>();
+
 
     protected Level level;
 
@@ -39,7 +39,7 @@ public class Solid{
     // liste des forces extérieures pour les calculs du vecteur accélération
     // Chaque élément de extforce est une liste avec comme premier élément x et deuxieme y des vecteur forces concerné
     // niveau dans l'environement : sol, bas ,milieu, haut, (0,1,2,3)
-    private ArrayList<Boolean> occupiedLevel ;
+    protected ArrayList<Boolean> occupiedLevel ;
     private Rectangle bounds;
 
 
@@ -53,7 +53,7 @@ public class Solid{
         this.dim = dim;
 
         occupiedLevel = initialOccupiedLevel;
-        SOLIDLIST.add(this);
+        Physician.SOLIDLIST.add(this);
         occupiedLevel = initialOccupiedLevel;
 
     }
@@ -108,36 +108,7 @@ public class Solid{
     {
         speedY = speed;
     }
-    // vérificateur de colision
-    public void checkColision() {
-        // on fait une AABB autour de notre objet pour detecter la colision
-        Rectangle checkingRectangle = getBounds();
-        Rectangle otherRectangle;
-        int j;
-        // on navigue dans les solid pour vérifier les colisions
-        for (int i = 0; i < SOLIDLIST.size(); i++) {
-            if (!(SOLIDLIST.get(i) == this)) {
-                j = 0;
-                //sont-ils sur le même niveau  ?
-                while (j < occupiedLevel.size()) {
-                    if (occupiedLevel.get(j) == SOLIDLIST.get(i).occupiedLevel.get(j)) {
-                        j = occupiedLevel.size();
-                        otherRectangle = new Rectangle(SOLIDLIST.get(i).getBounds());
-                        // si les 2 AABB des 2 objects se rencontre
-                        if (checkingRectangle.intersects(otherRectangle)) {
-                            java.util.List<Solid> colision = new ArrayList<Solid>();
-                            colision.add(this);
-                            colision.add(SOLIDLIST.get(i));
 
-                            level.levelPhysician.colisionAdder(colision);
-
-                        }
-                    }
-                    j++;
-                }
-            }
-        }
-    }
     // réaction a la colision avec un solid
     private void collisionHandler(Solid S)
     {
@@ -157,15 +128,16 @@ public class Solid{
 
     }
 
-    public void forward(double dTime){
+    public void forward(double dTime) {
         processSpeedX(dTime);
         processSpeedY(dTime);
+        synchronized (this){
+            pos.setX(pos.getX() + dTime * speedX);
+            pos.setY(pos.getY() + dTime * speedY);
+        }
 
-        pos.setX(pos.getX() + dTime * speedX);
-        pos.setY(pos.getY() + dTime * speedY);
 
-
-        checkColision();
+        level.levelPhysician.checkColision(this);
     }
 
     public void backward()

@@ -26,7 +26,7 @@ public class Level {
 
         levelDimension = dim;
 
-        levelPhysician = new Physician();
+
 
         lastUpdateTime = System.currentTimeMillis();
 
@@ -48,6 +48,7 @@ public class Level {
         };
         t.start();
 
+        levelPhysician = new Physician();
     }
 
     private Level MocheMaisSimplifieLaVie(){
@@ -110,7 +111,6 @@ public class Level {
             for(Floortile f : floortiles){
                 f.forward(dTime);
             }
-            levelPhysician.colisionHandler();
         }
     }
 

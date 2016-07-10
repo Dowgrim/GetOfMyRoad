@@ -55,7 +55,7 @@ public class Screen extends JFrame {
 
         int columnSize = getWidth()/4;
 
-        new DisplayTileColumn(columnSize, columnSize, 25, level, layers, this);
+        //new DisplayTileColumn(columnSize, columnSize, 25, level, layers, this);
 
         setVisible(true);
         informationScreen = new InformationScreen(l);

@@ -34,23 +34,20 @@ public class Player extends Solid {
     public void forward(double dTime){
 
         super.forward(dTime);
-        // faire boucler sur les bord de l'écran les pions :
-        if (x() < -dim.getWidth()/2)
-        {
-            setPosX(level.getW()-w()/2);
-        }
-        else if (x() > (level.getW()-w()/2))
-        {
-            setPosX(-w()/2);
-        }
 
-        if (y() < 0 )
-        {
-            setPosY(0);
-        }
-        else if (y() > (level.getH()-h()))
-        {
-            setPosY(level.getH()-h());
+        synchronized (this) {
+            // faire boucler sur les bord de l'écran les pions :
+            if (x() < -dim.getWidth() / 2) {
+                setPosX(level.getW() - w() / 2);
+            } else if (x() > (level.getW() - w() / 2)) {
+                setPosX(-w() / 2);
+            }
+
+            if (y() < 0) {
+                setPosY(0);
+            } else if (y() > (level.getH() - h())) {
+                setPosY(level.getH() - h());
+            }
         }
 
     }

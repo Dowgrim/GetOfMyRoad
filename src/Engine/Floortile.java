@@ -11,6 +11,14 @@ public class Floortile extends Solid{
     private double floorSpeed;
     private Level level;
 
+    /**
+     *
+     * @param posinit
+     * @param dim
+     * @param initOccupiedLevels
+     * @param l
+     *
+     */
     public Floortile(Localisation posinit, Dimension dim, ArrayList<Boolean> initOccupiedLevels, Level l)
     {
         super(posinit, dim, 15, initOccupiedLevels, l);
@@ -25,7 +33,9 @@ public class Floortile extends Solid{
     @Override
     public void forward(double dTime){
         if(pos.getY() > (Math.ceil(level.getH()/dim.getHeight())+1)*dim.getHeight()) {
-            pos.setY(-h());
+            synchronized (this) {
+                pos.setY(-h());
+            }
         }
 
         super.forward(dTime);
@@ -42,8 +52,4 @@ public class Floortile extends Solid{
         speedY = floorSpeed;
     }
 
-    @Override
-    public void checkColision() {
-
-    }
 }
